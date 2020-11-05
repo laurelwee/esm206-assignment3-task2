@@ -10,6 +10,8 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 library(tidyverse)
 library(lubridate)
 ```
+# Assignment 3 task 2
+## Laurel Wee
 
 ## BEFORE YOU START: Save a renamed copy of this .Rmd
 
@@ -58,10 +60,10 @@ Make sure to `View()` the resulting data frame (remember: run `View()` in the Co
 
 ```{r}
 # Your code here: 
-sw_split_name <- starwars %>% 
-  separate(col = name, 
-           into = c("name_1","name_2"), 
-           sep = "-")
+sw_split_name <- starwars %>% #Start with starwars dataframe
+  separate(col = name, # Separate the 'name' column...
+           into = c("name_1","name_2"), #Into two columns 'name_1' and 'name_1'
+           sep = "-") # Separate at the first dash
 
 ```
 
@@ -95,11 +97,12 @@ Make sure to `View()` the resulting data frame (remember: run `View()` in the Co
 
 ```{r}
 # Your code here:
-sw_skin_sep <- starwars %>% 
-  separate(col = skin_color, 
-           into = c("skin_1","skin_2"), sep = ",",
-           extra = "merge",
-           remove = FALSE)
+sw_skin_sep <- starwars %>% # Start from starwars data frame
+  separate(col = skin_color, # Separate the `skin_color` column
+           into = c("skin_1","skin_2"), # Into two columns 'skin_1' and 'skin_2'
+           sep = ",", # Creating the separation at the first comma
+           extra = "merge", # If additional commas, merge all into second column
+           remove = FALSE) # And *do not* remove the original column
 
 ```
 
@@ -135,11 +138,11 @@ In the code chunk below, starting from the `mpg` data create a new data frame ca
 
 ```{r}
 # Your code here: 
-mpg_model_class <- mpg %>% 
-  unite(col = make_model,
-        c(model,class),
-        sep = "-",
-        remove = FALSE)
+mpg_model_class <- mpg %>% # Start with mpg data
+  unite(col = make_model, # Create a new column called 'make_model'
+        c(model,class), # That combines the class & model column
+        sep = "-", # Use a dash to separate the model and class
+        remove = FALSE) # And *do not* remove the original column
 
 ```
 
@@ -198,10 +201,11 @@ In the code chunk below, create a vector (using `c()`, as above) stored as `some
 
 ```{r}
 # Your code here: 
-some_dates <- c(11061972, 02142007,01301843)
-some_dates_converted <- mdy(some_dates)
-some_dates_converted
-class(some_dates_converted)
+some_dates <- c(11061972, 02142007,01301843) # Create a vector of dates w/o spaces
+some_dates_converted <- mdy(some_dates)  # Convert to Date, stores as some_dates_converted
+some_dates_converted # Return some_dates_converted
+
+class(some_dates_converted)# Check the class
 
 ```
 
@@ -245,11 +249,11 @@ Starting from the `lakers` dataset, create a new dataset called `gasol_hookshots
 
 ```{r}
 # Your code here: 
-gasol_hookshots <- lakers %>% 
-  filter(player == "Pau Gasol",type == "hook") %>% 
-  mutate(gasol_date = ymd(date)) %>% 
-  mutate(gasol_month = month(gasol_date))%>% 
-  count(gasol_month)
+gasol_hookshots <- lakers %>%  # Start with Lakers data
+  filter(player == "Pau Gasol",type == "hook") %>% # Filter by player 'Pau Gasol' and type of shot 'hook'
+  mutate(gasol_date = ymd(date)) %>% # Create a new column with converted date to ymd
+  mutate(gasol_month = month(gasol_date))%>%  # Create a new column with only the month
+  count(gasol_month) # Find the number of Gasol's hook shots recorded
   
 ```
 
@@ -299,9 +303,10 @@ Note: If you add another condition within `case_when()` that is `TRUE ~ "some th
 
 ```{r}
 # Your code here: 
-storms_danger <- storms %>% 
-  mutate(danger = case_when(
-    status == "hurricane"~ "high", TRUE~"moderate"))
+storms_danger <- storms %>% # Start from storms data
+  mutate(danger = case_when( # Add a new column danger, which contains
+    status == "hurricane"~ "high", # 'high' if status is hurricane
+    TRUE~"moderate"))  # 'moderate' if status is NOT hurricane
 
 ```
 
